@@ -2,18 +2,12 @@ import os
 import seaborn as sns
 import pandas as pd
 import numpy as np
-import matplotlib.pyplot as plt
 import streamlit as st
-import matplotlib as mpl
-import shap
 from scipy.stats import chi2_contingency
 from pycaret.classification import *
-from sklearn.cluster import KMeans
-from sklearn.metrics import silhouette_score
 import pickle
 import matplotlib.pyplot as plt
 import matplotlib.font_manager as fm
-from matplotlib import rc
 import hashlib
 
 # 한글 폰트 경로 설정
