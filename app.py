@@ -257,7 +257,7 @@ def main_app():
                 # 수치형 변수 상관계수 시각화
                 if 'model' in st.session_state:
                     st.info("8-8-1")
-                    print(data_hash)
+                    st.info(data_hash)
                     numerical_corr_fig = st.session_state['model'].numerical_correlation(data_hash)
                     st.info("8-8-2")
                     # st.pyplot(numerical_corr_fig)
