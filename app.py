@@ -161,10 +161,10 @@ def main_app():
 
             st.info("7")
             if df is not None:
-                st.info("8")
                 # 세션 상태에서 모델 타입을 참조
                 model_type = st.session_state['model_type']
 
+                st.info("8")
                 # 모델 클래스 인스턴스화 및 세션 상태에 저장
                 if st.session_state['model_type'] == "분류":
                     from AutoML_Classification import Classification
@@ -182,10 +182,12 @@ def main_app():
                     from AutoML_AnomalyDetection import AnomalyDetection
                     st.session_state['model'] = AnomalyDetection(None, target_column)   
 
+                st.info("8-1")
                 # 모델 데이터 로드
                 if df is not None:
                     st.session_state['model'].load_data(dataframe=filtered_df)
 
+                st.info("8-2")
                 # 데이터프레임 필터링 옵션
                 if st.session_state['model_type'] == "분류":# in ["분류"]:
                     if st.checkbox("타겟 변수에 대한 데이터만 보기"):
@@ -194,6 +196,7 @@ def main_app():
                     else:
                         st.dataframe(df)
 
+                st.info("8-3")
                 elif model_type in ["예측"]:
                     if st.checkbox("범위로 데이터 필터링"):
                         min_val, max_val = st.slider("범위 선택", float(df[target_column].min()), float(df[target_column].max()), (float(df[target_column].min()), float(df[target_column].max())))
@@ -214,10 +217,13 @@ def main_app():
                 elif model_type in ["이상치 탐지"]:
                     st.dataframe(df)
 
+                st.info("8-4")
                 data_hash = st.session_state['model'].hash_data()
 
+                st.info("8-5")
                 # 메소드 호출
                 if 'model' in st.session_state:
+                    st.info("8-6")
                     st.markdown("### 수치형 데이터 통계")
                     data_description = st.session_state['model'].explore_data(data_hash)
                     st.write(data_description)
@@ -236,6 +242,7 @@ def main_app():
                         st.markdown("### 범주형 데이터 분포")
                         st.warning("이 데이터셋에는 범주형 변수가 없습니다.")      
 
+                st.info("8-7")
                 # 결측치 분포 시각화
                 if 'model' in st.session_state:
                     st.markdown("### 결측치 분포")
@@ -258,6 +265,7 @@ def main_app():
                     with col2:
                         st.pyplot(cleaned_missing_fig)
 
+                st.info("8-8")
                 # 수치형 변수 상관계수 시각화
                 if 'model' in st.session_state:
                     numerical_corr_fig = st.session_state['model'].numerical_correlation(data_hash)
@@ -277,6 +285,7 @@ def main_app():
                         st.markdown("#### 범주형 변수 상관계수")
                         st.pyplot(categorical_corr_fig)
 
+                st.info("8-9")
                 if model_type == '시계열':
                     st.write('\n')
                     st.markdown("### 시계열 데이터 확인")
