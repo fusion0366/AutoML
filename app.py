@@ -12,7 +12,7 @@ import matplotlib.font_manager as fm
 # -*- coding: utf-8-sig -*-
 
 # 로그인 함수
-@st.cache_data(experimental_allow_widgets=True)
+@st.cache_data
 def check_login(username, password):
     return accounts.get(username) == password
 
