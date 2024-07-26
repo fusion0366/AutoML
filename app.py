@@ -196,7 +196,7 @@ def main_app():
                     else:
                         st.dataframe(df)
 
-                st.info("8-3")
+                    st.info("8-3")
                 elif model_type in ["예측"]:
                     if st.checkbox("범위로 데이터 필터링"):
                         min_val, max_val = st.slider("범위 선택", float(df[target_column].min()), float(df[target_column].max()), (float(df[target_column].min()), float(df[target_column].max())))
