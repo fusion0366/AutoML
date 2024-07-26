@@ -167,8 +167,11 @@ def main_app():
                 st.info("8")
                 # 모델 클래스 인스턴스화 및 세션 상태에 저장
                 if st.session_state['model_type'] == "분류":
+                    st.info("8-0-1")
                     from AutoML_Classification import Classification
+                    st.info("8-0-2")
                     st.session_state['model'] = Classification(None, target_column)
+                    st.info("8-0-3")
                 elif model_type == "예측":
                     from AutoML_Regression import Regression
                     st.session_state['model'] = Regression(None, target_column)
