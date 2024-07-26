@@ -159,19 +159,14 @@ def main_app():
             # df가 None일 경우 안전하게 처리
                 filtered_df = pd.DataFrame(columns=filtered_columns)
 
-            st.info("7")
             if df is not None:
                 # 세션 상태에서 모델 타입을 참조
                 model_type = st.session_state['model_type']
 
-                st.info("8")
                 # 모델 클래스 인스턴스화 및 세션 상태에 저장
                 if st.session_state['model_type'] == "분류":
-                    st.info("8-0-1")
                     from AutoML_Classification import Classification
-                    st.info("8-0-2")
                     st.session_state['model'] = Classification(None, target_column)
-                    st.info("8-0-3")
                 elif model_type == "예측":
                     from AutoML_Regression import Regression
                     st.session_state['model'] = Regression(None, target_column)
@@ -185,12 +180,10 @@ def main_app():
                     from AutoML_AnomalyDetection import AnomalyDetection
                     st.session_state['model'] = AnomalyDetection(None, target_column)   
 
-                st.info("8-1")
                 # 모델 데이터 로드
                 if df is not None:
                     st.session_state['model'].load_data(dataframe=filtered_df)
 
-                st.info("8-2")
                 # 데이터프레임 필터링 옵션
                 if st.session_state['model_type'] == "분류":# in ["분류"]:
                     if st.checkbox("타겟 변수에 대한 데이터만 보기"):
@@ -198,32 +191,25 @@ def main_app():
                         st.dataframe(df[df[target_column] == filtered_value])
                     else:
                         st.dataframe(df)
-
-                    st.info("8-3")
                 elif model_type in ["예측"]:
                     if st.checkbox("범위로 데이터 필터링"):
                         min_val, max_val = st.slider("범위 선택", float(df[target_column].min()), float(df[target_column].max()), (float(df[target_column].min()), float(df[target_column].max())))
                         st.dataframe(df[df[target_column].between(min_val, max_val)])
                     else:
                         st.dataframe(df)
-
                 elif model_type in ["군집분석"]:
                     st.dataframe(df)
-
                 elif model_type in ["시계열"]:
                     if st.checkbox("타겟 변수에 대한 데이터만 보기"):
                         filtered_value = st.selectbox("타겟 변수 값 선택", df[target_column].unique())
                         st.dataframe(df[df[target_column] == filtered_value])
                     else:
                         st.dataframe(df)   
-
                 elif model_type in ["이상치 탐지"]:
                     st.dataframe(df)
 
-                st.info("8-4")
                 data_hash = st.session_state['model'].hash_data()
 
-                st.info("8-5")
                 # 메소드 호출
                 if 'model' in st.session_state:
                     st.info("8-6")
@@ -245,7 +231,6 @@ def main_app():
                         st.markdown("### 범주형 데이터 분포")
                         st.warning("이 데이터셋에는 범주형 변수가 없습니다.")      
 
-                st.info("8-7")
                 # 결측치 분포 시각화
                 if 'model' in st.session_state:
                     st.markdown("### 결측치 분포")
@@ -271,20 +256,26 @@ def main_app():
                 st.info("8-8")
                 # 수치형 변수 상관계수 시각화
                 if 'model' in st.session_state:
+                    st.info("8-8-1")
                     numerical_corr_fig = st.session_state['model'].numerical_correlation(data_hash)
+                    st.info("8-8-2")
                     # st.pyplot(numerical_corr_fig)
                     
                     # 범주형 변수 상관계수 시각화
                     categorical_corr_fig = st.session_state['model'].categorical_correlation(data_hash)
+                    st.info("8-8-3")
                     # st.pyplot(categorical_corr_fig)
                     st.markdown("### 변수 간 상관계수")
                     st.write("변수 간의 상관관계를 나타내는 히트맵입니다. 값이 높을수록 강한 상관관계를 나타냅니다.")
+                    st.info("8-8-4")
 
                     col1, col2 = st.columns(2)
                     with col1:
+                        st.info("8-8-4-1")
                         st.markdown("#### 수치형 변수 상관계수")
                         st.pyplot(numerical_corr_fig)
                     with col2:
+                        st.info("8-8-4-2")
                         st.markdown("#### 범주형 변수 상관계수")
                         st.pyplot(categorical_corr_fig)
 
