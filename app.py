@@ -104,12 +104,10 @@ def main_app():
             # 데이터 타입 최적화
             df = optimize_dtypes(df)
 
-        st.info("1")
         # 모델 종류 선택
         model_type = st.sidebar.selectbox("모델 종류 선택", ["분류", "예측", "군집분석", "시계열", "이상치 탐지"])
         st.session_state['model_type'] = model_type  # 세션 상태에 모델 종류 저장
 
-        st.info("2")
         # 초기화
         datetime_column = None
         target_column = None
@@ -130,7 +128,6 @@ def main_app():
         elif model_type not in ["군집분석", "이상치 탐지"] and df is not None:
             target_column = st.sidebar.selectbox("타겟 변수 선택", df.columns)
 
-        st.info("3")
         # 활용 컬럼 선택
         selected_columns = []
         if df is not None:
@@ -142,9 +139,7 @@ def main_app():
         # 메인 콘텐츠 영역
         tab1, tab2, tab3, tab4 = st.tabs(['데이터 EDA' , '분석 모델링', '모델 성능 평가', '모델 활용'])
 
-        st.info("4")
         with tab1:
-            st.info("5")
             st.markdown('## 📊 데이터 EDA')
             st.write('데이터 EDA는 데이터에 대해 확인하는 데이터 분석을 위한 준비절차입니다.')
             
@@ -157,7 +152,6 @@ def main_app():
             else:
                 filtered_columns = ([target_column] if target_column else []) + ([datetime_column] if datetime_column else [])
 
-            st.info("6")
             # df가 None이 아닐 때만 필터링된 데이터프레임 생성
             if df is not None:
                 filtered_df = df[filtered_columns].copy()                
@@ -167,6 +161,7 @@ def main_app():
 
             st.info("7")
             if df is not None:
+                st.info("8")
                 # 세션 상태에서 모델 타입을 참조
                 model_type = st.session_state['model_type']
 
@@ -293,7 +288,9 @@ def main_app():
                     st.plotly_chart(fig)
                     set_eda_complete()  # EDA 완료 상태 설정
         
+            st.info("9")
             if "eda_complete" in st.session_state and st.session_state.eda_complete:
+                st.info("10")
                 st.write('\n')
                 st.write('\n')
                 st.write('-------------------------------------------------')
