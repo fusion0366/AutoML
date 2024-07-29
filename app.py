@@ -1345,7 +1345,7 @@ def main_app():
         if 'The least populated class in y has only 1 member' in str(e).lower():
             st.error('타겟 변수의 클래스가 너무 적습니다. 타겟 변수의 클래스가 2개 이상인지 확인해주세요.')
         else:
-            st.error("입력 값이 올바르지 않습니다. 입력 형식을 확인해주세요.")
+            st.error(f"입력 값이 올바르지 않습니다. 입력 형식을 확인해주세요. \n \n {e} ")
     except KeyError as e:
         st.error("선택된 컬럼이 없습니다. 컬럼을 선택해주세요.")
     except FileNotFoundError as e:
